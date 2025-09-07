@@ -1,0 +1,342 @@
+.elevate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #000000;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  overflow: visible;
+}
+
+.elevate-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 400px;
+  height: 550px;
+}
+
+/* Logo container */
+.logo-container {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.elevate-logo {
+  opacity: 0;
+  transform: scale(1.2);
+  transition: all 0.8s ease-in-out;
+}
+
+.elevate-animation.animate .elevate-logo {
+  opacity: 1;
+  transform: scale(1.4);
+  animation: logoGlow 3s ease-in-out;
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+  }
+}
+
+/* Star Animation System - Production Ready */
+
+/* 1. ENTRANCE ANIMATION - Initial state */
+.star-main {
+  opacity: 0;
+  transform: scale(0.2) rotate(0deg);
+  transform-origin: center;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.star-glow {
+  transform: scale(1);
+  transform-origin: center;
+  filter: blur(8px);
+}
+
+/* 2. ANIMATED STATE - Entrance sequence */
+.elevate-animation.animate .star-main {
+  animation: 
+    starEntrance 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+    starStroke 1.5s ease-out 0.8s forwards,
+    starBreathing 4s ease-in-out 2.3s infinite,
+    fadeOutAll 1s ease-out 4.5s forwards;
+}
+
+.elevate-animation.animate .star-glow {
+  animation: 
+    starGlowPulse 3s ease-in-out 2.3s infinite,
+    fadeOutAll 1s ease-out 4.5s forwards;
+}
+
+/* 3. KEYFRAME ANIMATIONS */
+
+/* Entrance: Scale + Rotation + Movement from above */
+@keyframes starEntrance {
+  0% {
+    opacity: 0;
+    transform: translate(0, -80px) scale(0.2) rotate(0deg);
+  }
+  25% {
+    opacity: 0.4;
+    transform: translate(0, -60px) scale(0.4) rotate(90deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(0, -30px) scale(0.7) rotate(180deg);
+  }
+  75% {
+    opacity: 0.9;
+    transform: translate(0, -10px) scale(0.9) rotate(270deg);
+  }
+  90% {
+    opacity: 0.95;
+    transform: translate(0, -2px) scale(1.05) rotate(340deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(360deg);
+  }
+}
+
+/* Stroke Drawing Effect */
+@keyframes starStroke {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Breathing Scale Loop */
+@keyframes starBreathing {
+  0%, 100% {
+    transform: scale(1) rotate(360deg);
+  }
+  50% {
+    transform: scale(1.05) rotate(360deg);
+  }
+}
+
+/* Glow Pulse Effect */
+@keyframes starGlowPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.3);
+  }
+}
+
+/* 4. FALLBACK - Non-animated state */
+.elevate-animation:not(.animate) .star-main {
+  opacity: 0;
+  transform: scale(0.2) rotate(0deg);
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.elevate-animation:not(.animate) .star-glow {
+  opacity: 0;
+}
+
+/* Bottom shape border animation - draws from bottom pin up both sides */
+.bottom-shape {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.elevate-animation.animate .bottom-shape {
+  animation: drawBorderFromBottom 2s ease-in-out 0.5s forwards, fadeOutAll 1s ease-out 4.5s forwards;
+}
+
+@keyframes drawBorderFromBottom {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Bottom shape fill animation - fills diagonally from bottom-left to top-right */
+.bottom-shape-fill {
+  opacity: 0;
+  transform-origin: bottom left;
+  clip-path: polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%);
+}
+
+.elevate-animation.animate .bottom-shape-fill {
+  animation: fillDiagonally 1.5s ease-in-out 2.5s forwards, fadeOutAll 1s ease-out 4.5s forwards;
+}
+
+@keyframes fillDiagonally {
+  0% {
+    opacity: 1;
+    clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
+  }
+  25% {
+    opacity: 1;
+    clip-path: polygon(0% 100%, 25% 75%, 0% 75%);
+  }
+  50% {
+    opacity: 1;
+    clip-path: polygon(0% 100%, 50% 50%, 25% 75%, 0% 75%);
+  }
+  75% {
+    opacity: 1;
+    clip-path: polygon(0% 100%, 75% 25%, 50% 50%, 0% 75%);
+  }
+  100% {
+    opacity: 1;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+
+.diamond-shape::after {
+  width: 8px;
+  height: 3px;
+  top: 4px;
+  left: 0;
+  transform: rotate(0deg);
+}
+
+/* Text Styling */
+.elevate-text {
+  display: flex;
+  gap: 12px;
+  font-size: 70px;
+  font-weight: 500;
+  letter-spacing: 12px;
+  color: #ffffff;
+  margin-top: 30px;
+}
+
+.elevate-text span {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transform-origin: bottom center;
+}
+
+/* Animation States */
+.elevate-animation.animate .star-top .diamond-shape {
+  animation: starGrowth 3s ease-in-out;
+}
+
+.elevate-animation.animate .star-top .diamond-shape::before,
+.elevate-animation.animate .star-top .diamond-shape::after {
+  animation: starGrowth 3s ease-in-out;
+}
+
+.elevate-animation.animate .elevate-text span:nth-child(1) { animation: textScaleUp 0.8s ease-out 3.0s forwards, fadeOutAll 1s ease-out 4.5s forwards; }
+.elevate-animation.animate .elevate-text span:nth-child(2) { animation: textScaleUp 0.8s ease-out 3.0s forwards, fadeOutAll 1s ease-out 4.5s forwards; }
+.elevate-animation.animate .elevate-text span:nth-child(3) { animation: textScaleUp 0.8s ease-out 3.0s forwards, fadeOutAll 1s ease-out 4.5s forwards; }
+.elevate-animation.animate .elevate-text span:nth-child(4) { animation: textScaleUp 0.8s ease-out 3.0s forwards, fadeOutAll 1s ease-out 4.5s forwards; }
+.elevate-animation.animate .elevate-text span:nth-child(5) { animation: textScaleUp 0.8s ease-out 3.0s forwards, fadeOutAll 1s ease-out 4.5s forwards; }
+.elevate-animation.animate .elevate-text span:nth-child(6) { animation: textScaleUp 0.8s ease-out 3.0s forwards, fadeOutAll 1s ease-out 4.5s forwards; }
+.elevate-animation.animate .elevate-text span:nth-child(7) { animation: textScaleUp 0.8s ease-out 3.0s forwards, fadeOutAll 1s ease-out 4.5s forwards; }
+
+/* Remove the non-animated text state rule that was interfering with fade out */
+
+/* Ensure all elements remain hidden when animation completes */
+.elevate-animation:not(.animate) .elevate-text span {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.elevate-animation:not(.animate) .bottom-shape {
+  opacity: 0;
+}
+
+.elevate-animation:not(.animate) .bottom-shape-fill {
+  opacity: 0;
+}
+
+/* Keyframe Animations */
+@keyframes textScaleUp {
+  0% {
+    opacity: 0.1;
+    transform: translateY(20px) scale(0.95);
+  }
+  30% {
+    opacity: 0.6;
+    transform: translateY(15px) scale(0.97);
+  }
+  60% {
+    opacity: 0.85;
+    transform: translateY(8px) scale(0.99);
+  }
+  80% {
+    opacity: 0.95;
+    transform: translateY(3px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+/* Fade out animation for all elements */
+@keyframes fadeOutAll {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Replay Button */
+.replay-btn {
+  position: absolute;
+  bottom: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.replay-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.replay-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .elevate-animation {
+    width: 350px;
+    height: 450px;
+  }
+  
+  .elevate-text {
+    font-size: 26px;
+    letter-spacing: 8px;
+  }
+}
